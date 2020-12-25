@@ -65,14 +65,14 @@ def updateDataOfNoticeSection(data,name):
 # Add new record to telegram groups database
 def insertRecordTelegramGroup(chatid,name):
     try:
-        currentdate = str(datetime.date.today().strftime("%d-%m-%Y"))
+        currentdate = str(datetime.date.today().strftime("%d%m%Y"))
         cur = conn.cursor()
         cur.execute("SELECT id, chatid  from telegram_group where chatid=(%s)", (str(chatid),))
         if len(cur.fetchall()) > 0 :
             return True
         cur = conn.cursor()
         cur.execute("INSERT INTO telegram_group (name,created_at,chatid) \
-                    VALUES ((%s),(%s),(%s) )",(str(name),str(currentdate),str(chatid),))
+                    VALUES ((%s),TO_DATE((%s),'DDMMYYYY'),(%s) )",(str(name),str(currentdate),str(chatid),))
         conn.commit()
         return True
     except:
@@ -82,31 +82,32 @@ def insertRecordTelegramGroup(chatid,name):
 # Add new record to telegram users database
 def insertRecordTelegramUser(chatid,name):
     try:
-        currentdate = str(datetime.date.today().strftime("%d-%m-%Y"))
+        currentdate = str(datetime.date.today().strftime("%d%m%Y"))
         cur = conn.cursor()
         cur.execute("SELECT id, chatid  from telegram_user where chatid=(%s)", (str(chatid),))
         if len(cur.fetchall()) > 0 :
             return True
         cur = conn.cursor()
         cur.execute("INSERT INTO telegram_user (name,created_at,chatid) \
-                    VALUES ((%s),(%s),(%s) )",(str(name),str(currentdate),str(chatid),))
+                    VALUES ((%s),TO_DATE((%s),'DDMMYYYY'),(%s) )",(str(name),str(currentdate),str(chatid),))
         conn.commit()
         return True
-    except:
+    except Exception as e:
+        print(e)
         conn.rollback()
         return False
 
 # Add new record to email subscriptions database
 def insertRecordEmailSubscriptions(name,emailid,chatid=""):
     try:
-        currentdate = str(datetime.date.today().strftime("%d-%m-%Y"))
+        currentdate = str(datetime.date.today().strftime("%d%m%Y"))
         cur = conn.cursor()
         cur.execute("SELECT id, email_id  from email_subscriptions where email_id=(%s)", (str(emailid),))
         if len(cur.fetchall()) > 0 :
             return True
         cur = conn.cursor()
         cur.execute("INSERT INTO email_subscriptions (name,created_at,telegram_id, email_id) \
-                    VALUES ((%s),(%s),(%s),(%s) )",(str(name),str(currentdate),str(chatid),str(emailid),))
+                    VALUES ((%s),TO_DATE((%s),'DDMMYYYY'),(%s),(%s) )",(str(name),str(currentdate),str(chatid),str(emailid),))
         conn.commit()
         return True
     except:
