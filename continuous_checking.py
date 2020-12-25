@@ -9,7 +9,7 @@ import os
 load_dotenv()
 
 bot_token = os.getenv("BOT_TOKEN")
-command_to_send = 'start cmd /k "python send_messages_telegram.py -t {} -name_id {} -token {}"'
+command_to_send = 'start cmd /k "python send_messages_telegram.py -t {} -name_id {} -token {} && exit"'
 frequency = 180 # 60*30 -- 30 minutes
 
 
