@@ -13,7 +13,7 @@ updater = Updater(telegram_token, use_context=True)
 
 def getHelpLines():
     helplines='''<b><u>Welcome You</u></b>\n<b><i>These Commands are available</i></b>\n<a>---------------------</a>\n'''
-    helplines+= "<a>/register - To Regitser Yourself/Group To All Updates</a>\n"
+    helplines+= "<a>/register - To Register Yourself/Group To All Updates</a>\n"
     helplines+= "<a>/registerme - To Register Yourself To All Updates</a>\n"
     helplines+= "<a>---------------------</a>\n"
     helplines+= "<a>/menu - To Get List Of Options</a>\n"
