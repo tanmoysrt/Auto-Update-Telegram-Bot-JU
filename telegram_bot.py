@@ -64,7 +64,7 @@ def start(update: Update, context: CallbackContext):
                 chat_id=update.message.chat_id,
                 text=f'Failed! Please Retry'
             )
-    elif update.message.chat.type == "group" :
+    elif update.message.chat.type == "group" or update.message.chat.type =="supergroup" :
         if db_commands.insertRecordTelegramGroup(update.message.chat.id,update.message.chat.title):
             bot.send_message(
                 chat_id=update.message.chat_id,
@@ -113,7 +113,7 @@ def registerme(update: Update, context: CallbackContext):
                 chat_id=update.message.chat_id,
                 text=f'Failed! Please Retry'
             )
-    elif update.message.chat.type == "group" :
+    elif update.message.chat.type == "group" or update.message.chat.type =="supergroup" :
         if db_commands.insertRecordTelegramGroup(update.message.chat.id,update.message.chat.title):
             bot.send_message(
                 chat_id=update.message.chat_id,
