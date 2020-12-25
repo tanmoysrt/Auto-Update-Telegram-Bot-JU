@@ -35,7 +35,7 @@ def sendTelegramMessage(chat_id, text):
 
 def start(update: Update, context: CallbackContext):
     if update.message.chat.type == "private":
-        name = update.message.chat.first_name+" "+update.message.chat.last_name
+        name = str(update.message.chat.first_name)+" "+str(update.message.chat.last_name)
         if db_commands.insertRecordTelegramUser(update.message.chat.id,name):
             bot.send_message(
                 chat_id=update.message.chat_id,
@@ -98,7 +98,7 @@ def start(update: Update, context: CallbackContext):
 
 def registerme(update: Update, context: CallbackContext):
     if update.message.chat.type == "private":
-        name = update.message.chat.first_name+" "+update.message.chat.last_name
+        name = str(update.message.chat.first_name)+" "+str(update.message.chat.last_name)
         if db_commands.insertRecordTelegramUser(update.message.chat.id,name):
             bot.send_message(
                 chat_id=update.message.chat_id,
@@ -128,10 +128,10 @@ def registerme(update: Update, context: CallbackContext):
                 chat_id=update.message.chat_id,
                 text=f'Failed! Please Retry'
             )
-        if db_commands.insertRecordTelegramUser(update.message.from_user.id,update.message.from_user.first_name+" "+update.message.from_user.last_name):
+        if db_commands.insertRecordTelegramUser(update.message.from_user.id,str(update.message.chat.first_name)+" "+str(update.message.chat.last_name)):
             bot.send_message(
                 chat_id=update.message.chat_id,
-                text=f'Hi 😎 {update.message.from_user.first_name+" "+update.message.from_user.last_name}. You have successfully registered 🎉🎉'
+                text=f'Hi 😎 {str(update.message.chat.first_name)+" "+str(update.message.chat.last_name)}. You have successfully registered 🎉🎉'
             )
             bot.send_message(
                 chat_id=update.message.chat_id,
